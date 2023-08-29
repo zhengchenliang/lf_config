@@ -1,2 +1,1 @@
-# lf_config
-lf config file
+~/.config/lf/lfrc
