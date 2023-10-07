@@ -54,6 +54,8 @@ map Q quit
 cmd open &{{
   set -f
   case $f in
+    *.mq5|*.mqh|*.mqproj|*.set|*.tpl) lf -remote "send $id \$vim \$fx";;
+    *.root) ~/.config/lf/r1_runroot.sh $f;;
     #*.tex) texmaker -n $f;;
     #*.jpg|*.JPG|*.jpeg|*.JPEG|*.png|*.PNG|*.gif|*.GIF|*.bmp|*.BMP|*.tiff|*.TIFF|*.tif|*.TIF|*s.webp|*.svg|*.ico|*.xcf) sxiv $f;;
     #*.pdf|*.PDF|*.ps|*.xps) xpdf $f;;
@@ -95,6 +97,16 @@ map d delete
 # move current file or selected files to trash folder
 cmd trash %set -f; mv $fx ~/.trash
 map <delete> trash
+
+cmd operate ${{
+    st
+}}
+map f operate
+
+cmd helpme ${{
+    st -e bash -c 'echo -ne "lf config help:\n  q: quit\n  a: mkdir\n  s: rename\n  d: delete\n  f: operate\n  h: help\n  ->: open\n  <delete>: mv to ~/.trash\n"; read -n 1 -s -r -p "Press any key to close ..."'
+}}
+map h helpme
 
 # extract the current file with the right command
 # (xkcd link: https://xkcd.com/1168/)
