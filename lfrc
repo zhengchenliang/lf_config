@@ -65,10 +65,10 @@ cmd open &{{
       case $(file --mime-type -Lb $f) in
         text/x-tex) lf -remote "send $id \$texmaker -n \$fx";;
         text/*) lf -remote "send $id \$vim \$fx";;
-        image/*) lf -remote "send $id \$sxiv \$fx";;
+        image/*) sxiv $f;;
         video/*) lf -remote "send $id \$vlc \$fx > /dev/null 2>&1";;
         audio/*) lf -remote "send $id \$vlc --audio-visual glspectrum \$fx > /dev/null 2>&1";;
-        application/pdf) lf -remote "send $id \$xpdf \$fx";;
+        application/pdf) xpdf $f;;
         application/octet-stream) lf -remote "send $id \$paraview \$fx > /dev/null 2>&1";;
         application/x-bittorrent) lf -remote "send $id \$qbittorrent \$fx > /dev/null 2>&1";;
         *) for f in $fx; do $OPENER $f > /dev/null 2> /dev/null & done;;
