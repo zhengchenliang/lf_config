@@ -58,20 +58,20 @@ cmd open &{{
     *.root) ~/.config/lf/r1_runroot.sh $f;;
     #*.tex) texmaker -n $f;;
     #*.jpg|*.JPG|*.jpeg|*.JPEG|*.png|*.PNG|*.gif|*.GIF|*.bmp|*.BMP|*.tiff|*.TIFF|*.tif|*.TIF|*s.webp|*.svg|*.ico|*.xcf) sxiv $f;;
-    #*.pdf|*.PDF|*.ps|*.xps) xpdf $f;;
+    *.pdf|*.PDF|*.ps|*.xps) firefox --new-window $f &;;
     #*.stl) paraview $f;;
     #*.torrent) qbittorrent $f;;
     *)
       case $(file --mime-type -Lb $f) in
         text/x-tex) lf -remote "send $id \$texmaker -n \$fx";;
         text/*) lf -remote "send $id \$vim \$fx";;
-        image/*) sxiv $f;;
+        image/*) sxiv $f &;;
         video/*) lf -remote "send $id \$vlc \$fx > /dev/null 2>&1";;
         audio/*) lf -remote "send $id \$vlc --audio-visual glspectrum \$fx > /dev/null 2>&1";;
-        application/pdf) xpdf $f;;
-        application/octet-stream) lf -remote "send $id \$paraview \$fx > /dev/null 2>&1";;
+        #application/pdf) firefox --new-window $f &;;
         application/x-bittorrent) lf -remote "send $id \$qbittorrent \$fx > /dev/null 2>&1";;
-        *) for f in $fx; do $OPENER $f > /dev/null 2> /dev/null & done;;
+        #application/octet-stream) lf -remote "send $id \$paraview \$fx > /dev/null 2>&1";;
+        *) lf -remote "send $id \$vim \$fx";; # for f in $fx; do $OPENER $f > /dev/null 2> /dev/null & done;;
       esac
       ;;
   esac
