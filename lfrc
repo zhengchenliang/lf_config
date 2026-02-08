@@ -57,17 +57,19 @@ cmd open &{{
     *.mq5|*.mqh|*.mqproj|*.set|*.tpl) lf -remote "send $id \$vim \$fx";;
     *.root) ~/.config/lf/r1_runroot.sh $f;;
     #*.tex) texmaker -n $f;;
-    #*.jpg|*.JPG|*.jpeg|*.JPEG|*.png|*.PNG|*.gif|*.GIF|*.bmp|*.BMP|*.tiff|*.TIFF|*.tif|*.TIF|*s.webp|*.svg|*.ico|*.xcf) sxiv $f;;
+    #*.jpg|*.JPG|*.jpeg|*.JPEG|*.png|*.PNG|*.gif|*.GIF|*.bmp|*.BMP|*.tiff|*.TIFF|*.tif|*.TIF|*.webp|*.svg|*.ico|*.xcf) sxiv $f;;
+    *.html|*.htm) firefox --new-window $f &;;
     *.pdf|*.PDF|*.ps|*.xps) firefox --new-window $f &;;
     #*.stl) paraview $f;;
     #*.torrent) qbittorrent $f;;
     *)
       case $(file --mime-type -Lb $f) in
-        text/x-tex) lf -remote "send $id \$texmaker -n \$fx";;
+        #text/x-tex) lf -remote "send $id \$texmaker -n \$fx";;
+        text/x-tex) texmaker -n $f &;;
         text/*) lf -remote "send $id \$vim \$fx";;
         image/*) sxiv $f &;;
-        video/*) lf -remote "send $id \$vlc \$fx > /dev/null 2>&1";;
-        audio/*) lf -remote "send $id \$vlc --audio-visual glspectrum \$fx > /dev/null 2>&1";;
+        video/*) lf -remote "send $id \$mpv \$fx > /dev/null 2>&1";;
+        audio/*) lf -remote "send $id \$mpv --audio-visual glspectrum \$fx > /dev/null 2>&1";;
         #application/pdf) firefox --new-window $f &;;
         application/x-bittorrent) lf -remote "send $id \$qbittorrent \$fx > /dev/null 2>&1";;
         #application/octet-stream) lf -remote "send $id \$paraview \$fx > /dev/null 2>&1";;
